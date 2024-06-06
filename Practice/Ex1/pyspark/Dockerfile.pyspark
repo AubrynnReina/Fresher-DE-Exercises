@@ -1,0 +1,8 @@
+FROM python:3-alpine
+WORKDIR /pyspark
+COPY . /pyspark
+
+RUN pip install pyspark==3.5.1 &&\
+    pip install findspark
+
+CMD ["python", "current_version_checker.py"]

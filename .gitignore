@@ -1,0 +1,8 @@
+# Environment variables
+/Practice/Ex1/plugins/.env
+
+# Airflow logs
+/Practice/Ex1/logs
+
+# Large data
+/Practice/Ex1/data

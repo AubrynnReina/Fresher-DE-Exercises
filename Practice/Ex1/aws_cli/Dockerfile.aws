@@ -1,0 +1,7 @@
+FROM python:3-alpine
+WORKDIR /aws_cli
+COPY . /aws_cli
+
+RUN pip install awscli==1.32.113
+
+CMD ["python", "current_version_checker.py"]
