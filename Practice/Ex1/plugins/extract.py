@@ -1,4 +1,4 @@
-def extract():
+def extract(ti):
 
     import requests
     from bs4 import BeautifulSoup
@@ -7,7 +7,7 @@ def extract():
     import os
     from dotenv import load_dotenv
     import json
-
+    import glob
     # Access a web page
     # Nhà sách Tiki
     page_url = 'https://tiki.vn/api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&version=home-persionalized&trackity_id=393b240b-204b-fb68-7b04-c26cdd32ea3d&category=8322&page=1&urlKey=nha-sach-tiki'
@@ -32,7 +32,7 @@ def extract():
 
     # Upload to S3 Bucket
     current_time = datetime.datetime.now()
-    FILE_NAME = 'json_data/' + str(current_time.strftime('%m-%d-%Y_%H-%M-%S')) + '_tiki_bookstore.json'
+    FILE_NAME = str(current_time.strftime('%m-%d-%Y_%H-%M-%S')) + '_tiki_bookstore'
 
     # Get the credentials
     load_dotenv()
@@ -46,11 +46,13 @@ def extract():
         aws_secret_access_key=AWS_SECRET_KEY
     )
     bucket = 'aub-demo'
-    s3.put_object(Bucket=bucket, Body=soup.text, Key=FILE_NAME)
+    s3.put_object(Bucket=bucket, Body=soup.text, Key= 'json_data/' + FILE_NAME + '.json')
 
     # Create a json file and save it locally
-    JSON_DATA_PATH = 'data/' + FILE_NAME
-    json_data = json.loads(soup.text)
+    JSON_DATA_PATH = 'data/json_data/' + FILE_NAME + '.json'
+    # json_data = json.loads(soup.text)
     f = open(JSON_DATA_PATH, 'w+', encoding='utf-8')
-    json.dump(json_data, f)
+    json.dump(soup.text, f)
     f.close()
+
+    ti.xcom_push(key='file_name', value=FILE_NAME)

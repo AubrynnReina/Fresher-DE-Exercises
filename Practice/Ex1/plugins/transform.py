@@ -1,4 +1,4 @@
-def transform():
+def transform(ti):
 
     import json
     import pandas as pd
@@ -7,7 +7,7 @@ def transform():
     import os
     from dotenv import load_dotenv
 
-    # Get the credentials
+    # Get the credentials then the json file
     load_dotenv()
     AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
     AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
@@ -19,13 +19,18 @@ def transform():
         aws_secret_access_key=AWS_SECRET_KEY
     )
     bucket='aub-demo'
-    objs_contents = s3.list_objects_v2(Bucket=bucket, Prefix='json_data')['Contents']
-    obj_key = max(objs_contents, key=lambda x: x['LastModified'])['Key']
-    data = s3.get_object(Bucket=bucket, Key=obj_key)
-    contents = data['Body'].read().decode('utf-8')
+    # objs_contents = s3.list_objects_v2(Bucket=bucket, Prefix='json_data')['Contents']
+    # obj_key = max(objs_contents, key=lambda x: x['LastModified'])['Key']
+    # data = s3.get_object(Bucket=bucket, Key=obj_key)
+    # contents = data['Body'].read().decode('utf-8')
 
-    json_data = json.loads(contents)
+    # json_data = json.loads(contents)
 
+    # Get the json file locally
+    FILE_NAME = ti.xcom_pull(key='file_name', task_ids='extract')
+    JSON_DATA_PATH = 'data/json_data/' + FILE_NAME + '.json'
+    f = open(JSON_DATA_PATH, 'w+', encoding='utf-8')
+    json_data = json.load(f)
     # Read the json file
     ids = []
     names = []
@@ -42,9 +47,8 @@ def transform():
     save_df = pd.DataFrame(data=zip(ids, names, prices, discount_rates), columns=['id', 'name', 'price', 'discount_rate'])
     buffer_csv = StringIO()
     save_df.to_csv(buffer_csv, header=True, index=False)
-    CSV_FILE_NAME = obj_key.replace('json', 'csv')
-    s3.put_object(Bucket=bucket, Body=buffer_csv.getvalue(), Key=CSV_FILE_NAME)
+    s3.put_object(Bucket=bucket, Body=buffer_csv.getvalue(), Key='csv_data/' + FILE_NAME + '.csv')
 
     # Save the csv file locally
-    CSV_DATA_PATH = 'data/' + CSV_FILE_NAME
+    CSV_DATA_PATH = 'data/csv_data/' + FILE_NAME + '.csv'
     save_df.to_csv(CSV_DATA_PATH, header=True, index=False)

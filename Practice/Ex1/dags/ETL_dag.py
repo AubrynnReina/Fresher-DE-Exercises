@@ -5,8 +5,9 @@ from extract import extract
 from transform import transform
 from load import load
 
+
 dag = DAG(
-    dag_id='test_dag',
+    dag_id='ETL_dag',
     default_args={
         'start_date': days_ago(1),
     },
@@ -23,7 +24,7 @@ extract = PythonOperator(
 transform = PythonOperator(
     task_id='transform',
     python_callable=transform,
-    dag=dag
+    dag=dag,
 )
 
 load = PythonOperator(
@@ -32,5 +33,5 @@ load = PythonOperator(
     dag=dag
 )
 
-extract >> transform >> [load, load_2]
+extract >> transform >> load
 # transform >> [load, load_2] # parallel
