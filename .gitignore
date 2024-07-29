@@ -2,10 +2,10 @@
 *.env
 
 # Airflow logs
-/Practice/Ex1/logs
+/Practice/Docker_Intro/logs
 
 # Large data
-/Practice/Ex1/data
+/Practice/Docker_Intro/data
 
 # Data in General
 /data
