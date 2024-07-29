@@ -1,5 +1,5 @@
 # Environment variables
-/Practice/Ex1/plugins/.env
+*.env
 
 # Airflow logs
 /Practice/Ex1/logs
