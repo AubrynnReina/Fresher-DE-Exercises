@@ -1,0 +1,30 @@
+[2024-06-07T03:56:55.437+0000] {processor.py:161} INFO - Started process (PID=30) to work on /opt/airflow/dags/ETL_dag.py
+[2024-06-07T03:56:55.439+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/ETL_dag.py for tasks to queue
+[2024-06-07T03:56:55.442+0000] {logging_mixin.py:188} INFO - [2024-06-07T03:56:55.441+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/ETL_dag.py
+[2024-06-07T03:56:55.476+0000] {logging_mixin.py:188} INFO - [2024-06-07T03:56:55.470+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/ETL_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/ETL_dag.py", line 35, in <module>
+    extract >> transform >> [load, load_2]
+                                   ^^^^^^
+NameError: name 'load_2' is not defined. Did you mean: 'load'?
+[2024-06-07T03:56:55.478+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/ETL_dag.py
+[2024-06-07T03:56:55.500+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/ETL_dag.py took 0.072 seconds
+[2024-06-07T03:57:26.311+0000] {processor.py:161} INFO - Started process (PID=89) to work on /opt/airflow/dags/ETL_dag.py
+[2024-06-07T03:57:26.312+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/ETL_dag.py for tasks to queue
+[2024-06-07T03:57:26.314+0000] {logging_mixin.py:188} INFO - [2024-06-07T03:57:26.313+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/ETL_dag.py
+[2024-06-07T03:57:26.336+0000] {logging_mixin.py:188} INFO - [2024-06-07T03:57:26.331+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/ETL_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/ETL_dag.py", line 35, in <module>
+    extract >> transform >> [load, load_2]
+                                   ^^^^^^
+NameError: name 'load_2' is not defined. Did you mean: 'load'?
+[2024-06-07T03:57:26.339+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/ETL_dag.py
+[2024-06-07T03:57:26.360+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/ETL_dag.py took 0.055 seconds
