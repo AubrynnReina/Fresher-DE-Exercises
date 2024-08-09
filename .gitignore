@@ -2,10 +2,4 @@
 *.env
 
 # Airflow logs
-/Practice/Docker_Intro/logs
-
-# Large data
-/Practice/Docker_Intro/data
-
-# Data in General
-/data
+/Docker/logs/
