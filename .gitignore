@@ -3,3 +3,6 @@
 
 # Airflow logs
 /Docker/logs/
+
+# Data files
+data/
