@@ -20,7 +20,6 @@ services:
 
   spark-worker:
     image: bitnami/spark:3.5
-    # container_name: spark-worker
     hostname: spark-worker
     environment:
       - SPARK_MODE=worker
