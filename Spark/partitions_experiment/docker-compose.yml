@@ -11,12 +11,15 @@ services:
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
+      - SPARK_EVENTLOG_ENABLED=true
+      - SPARK_EVENTLOG_DIR=file:///opt/spark/logs
     ports:
-      - "8080:8080" # Spark Web UI
-      - "7077:7077" # Spark Master Port
+      - "8080:8080"
+      - "7077:7077"
     volumes:
-      - ./data:/opt/spark-apps/data
-      - ./scripts:/opt/spark-apps/scripts
+      - ./data:/opt/spark/data
+      - ./scripts:/opt/spark/scripts
+      - ./logs:/opt/spark/logs
 
   spark-worker:
     image: bitnami/spark:3.5
@@ -30,3 +33,8 @@ services:
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
+    volumes:
+      - ./logs:/opt/spark/logs
+
+volumes:
+  logs:

@@ -24,7 +24,8 @@ def prime_number_detector(num):
 
 time_data = []
 
-for i in range(6, 91, 6):
+for i in range(6, 13, 6):
+    
     spark_session = SparkSession.builder.appName("Test").getOrCreate()
 
     data_df = spark_session.read.text('../data/prime.txt')
@@ -35,6 +36,8 @@ for i in range(6, 91, 6):
     end_time = time.time()
 
     time_data.append(end_time - start_time)
+
+    spark_session.stop()
 
 with open('../data/Exe_time_2_3_2.pkl', 'wb') as f:
     pickle.dump(time_data, f)
