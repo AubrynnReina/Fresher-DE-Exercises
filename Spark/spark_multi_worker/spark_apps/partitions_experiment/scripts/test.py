@@ -25,9 +25,9 @@ def prime_number_detector(num):
 time_data = []
 spark_session = SparkSession.builder.appName("Test").getOrCreate()
 
-for i in range(4, 61, 4):
+for i in range(1, 29, 1):
     
-    data_df = spark_session.read.text('./apps/partitions_experiment/data/prime.txt')
+    data_df = spark_session.read.text('./apps/partitions_experiment/data/prime_5tr.txt')
     prime_nums = data_df[prime_number_detector(data_df['value'])]
     prime_nums = prime_nums.repartition(i)
 
@@ -37,7 +37,7 @@ for i in range(4, 61, 4):
 
     time_data.append(end_time - start_time)
 
-    with open('./apps/partitions_experiment/data/Exe_time_2_2_3.txt', 'a+') as f:
+    with open('./apps/partitions_experiment/data/Exe_time_single_increment_5tr.txt', 'a+') as f:
         f.write(str(end_time - start_time) + '\n')
 
 spark_session.stop()
